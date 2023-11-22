@@ -11,7 +11,7 @@ router.get('/products', async (req, res)=>{
         res.render('products/index', {products}) ;
     }
     catch(e){
-        res.render('error') ;
+        res.status(500).render('error', {err : e.message}) ;
     }
     
 })
@@ -23,7 +23,7 @@ router.get('/products/new', async (req, res)=>{
         res.render('products/new', {products}) ;
     }
     catch(e){
-        res.render('error') ;
+        res.status(500).render('error', {err : e.message}) ;
     }
     
 })
@@ -36,7 +36,7 @@ router.post('/products', async (req, res)=>{
         res.redirect('products') ;
     }
     catch(e){
-        res.render('error') ;
+        res.status(500).render('error', {err : e.message}) ;
     }
 })
 
@@ -48,8 +48,7 @@ router.get('/products/:id', async (req, res)=>{
         res.render('products/show', {foudProduct}) ;
     }
     catch(e){
-        console.log(e.message);
-        res.render('error') ;
+        res.status(500).render('error', {err : e.message}) ;
     }
 })
 
@@ -61,7 +60,7 @@ router.get('/products/:id/edit', async (req, res)=>{
         res.render('products/edit', {foundProduct}) ;
     }
     catch(e){
-        res.render('error') ;
+        res.status(500).render('error', {err : e.message}) ;
     }
 })
 
@@ -74,7 +73,7 @@ router.patch('/products/:id', async(req, res)=>{
         res.redirect(`/products/${id}`) ;
     }
     catch(e){
-        res.render('error') ;
+        res.status(500).render('error', {err : e.message}) ;
     }
 })
 
@@ -92,7 +91,7 @@ router.delete('/products/:id', async (req, res)=>{
         res.redirect('/products') ;
     }
     catch(e){
-        res.render('error') ;
+        res.status(500).render('error', {err : e.message}) ;
     }
 })
 

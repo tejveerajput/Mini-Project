@@ -18,7 +18,7 @@ router.post('/products/:id/review', async (req, res)=>{
         res.redirect(`/products/${id}`) ;
     }
     catch(e){
-        res.render('error') ;
+        res.status(500).render('error', {err : e.message}) ;
     }
 })
 
