@@ -22,4 +22,8 @@ router.post('/products/:id/review', async (req, res)=>{
     }
 })
 
+router.get('*', (req, res)=>{
+    res.render('error', {err: 'You have choosen wrong path'}) ;
+})
+
 module.exports = router ;

@@ -95,4 +95,8 @@ router.delete('/products/:id', async (req, res)=>{
     }
 })
 
+router.get('*', (req, res)=>{
+    res.render('error', {err: 'You have choosen wrong path'}) ;
+})
+
 module.exports = router ;
