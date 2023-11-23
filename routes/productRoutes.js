@@ -2,6 +2,7 @@ const express = require('express') ;
 const router = express.Router() ;
 const Product = require('../models/Product');
 const Review = require('../models/Review');
+const {validateProduct} = require('../middleware') ;
 
 
 // Home Page
@@ -29,7 +30,7 @@ router.get('/products/new', async (req, res)=>{
 })
 
 // Home Page after adding new product
-router.post('/products', async (req, res)=>{
+router.post('/products', validateProduct, async (req, res)=>{
     try{
         let {name, img, price, desc} = req.body ;
         await Product.create({name, img, price, desc}) ;

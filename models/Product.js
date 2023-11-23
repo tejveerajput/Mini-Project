@@ -10,7 +10,8 @@ const productSchema = new mongoose.Schema({
 
     img : {
         type: String ,
-        trim: true 
+        trim: true ,
+        required : true
     },
 
     price : {
@@ -22,6 +23,7 @@ const productSchema = new mongoose.Schema({
     desc : {
         type: String ,
         trim: true ,
+        required : true
     },
 
     reviews : [
