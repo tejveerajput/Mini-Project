@@ -1,0 +1,30 @@
+<% layout('layouts/boilerplate') %>
+
+
+<div class="row">
+    <%- include('../partials/flash') %>
+    <div class="col-md-6 mx-auto">
+        <h1 class="display-6">Sign Up</h1>
+
+        <form action="/register" method="post">
+            <div class="mb-3">
+                <label for="username" class="form-label">Username:</label>
+                <input type="text" name="username" class="form-control" id="username" placeholder="Username">
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" name="email" class="form-control" id="email" placeholder="Email">
+            </div>
+
+            <div class="mb-3">
+                <label for="password" class="form-label">Password:</label>
+                <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+            </div>
+
+            <button class="btn btn-sm btn-success" type="submit">Sign Up</button>
+
+            <p class="fw-light mt-2">Already Have an Account, <a href="/login">Log In</a></p>
+        </form>
+    </div>
+</div>

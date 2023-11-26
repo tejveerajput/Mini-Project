@@ -2,11 +2,11 @@ const express = require('express') ;
 const router = express.Router() ;
 const Product = require('../models/Product');
 const Review = require('../models/Review');
-const {validateProduct} = require('../middleware') ;
+const {validateProduct, isLoggedIn} = require('../middleware') ;
 
 
 // Home Page
-router.get('/products', async (req, res)=>{
+router.get('/products', isLoggedIn,  async (req, res)=>{
     try{
         let products = await Product.find({}) ;
         res.render('products/index', {products}) ;
@@ -18,7 +18,7 @@ router.get('/products', async (req, res)=>{
 })
 
 // Form for adding new product
-router.get('/products/new', async (req, res)=>{
+router.get('/products/new', isLoggedIn, async (req, res)=>{
     try{
         let products = await Product.find({}) ;
         res.render('products/new', {products}) ;
@@ -30,7 +30,7 @@ router.get('/products/new', async (req, res)=>{
 })
 
 // Home Page after adding new product
-router.post('/products', validateProduct, async (req, res)=>{
+router.post('/products', isLoggedIn, validateProduct, async (req, res)=>{
     try{
         let {name, img, price, desc} = req.body ;
         await Product.create({name, img, price, desc}) ;
@@ -43,7 +43,7 @@ router.post('/products', validateProduct, async (req, res)=>{
 })
 
 // To view specific product
-router.get('/products/:id', async (req, res)=>{
+router.get('/products/:id', isLoggedIn, async (req, res)=>{
     try{
         let {id} = req.params ;
         let foundProduct = await Product.findById(id).populate('reviews') ;
@@ -55,7 +55,7 @@ router.get('/products/:id', async (req, res)=>{
 })
 
 // Form to edit the product
-router.get('/products/:id/edit', async (req, res)=>{
+router.get('/products/:id/edit', isLoggedIn, async (req, res)=>{
     try{
         let {id} = req.params ;
         let foundProduct = await Product.findById(id) ;
@@ -67,7 +67,7 @@ router.get('/products/:id/edit', async (req, res)=>{
 })
 
 // after editing the product
-router.patch('/products/:id', async(req, res)=>{
+router.patch('/products/:id', isLoggedIn, async(req, res)=>{
     try{
         let {id} = req.params ;
         let {name, img, price, desc} = req.body ;
@@ -82,7 +82,7 @@ router.patch('/products/:id', async(req, res)=>{
 })
 
 // Deleting a product
-router.delete('/products/:id', async (req, res)=>{
+router.delete('/products/:id', isLoggedIn, async (req, res)=>{
     try{
         let {id} = req.params ;
         let foundProduct = await Product.findById(id) ;
@@ -100,8 +100,5 @@ router.delete('/products/:id', async (req, res)=>{
     }
 })
 
-router.get('*', (req, res)=>{
-    res.render('error', {err: 'You have choosen wrong path'}) ;
-})
 
 module.exports = router ;

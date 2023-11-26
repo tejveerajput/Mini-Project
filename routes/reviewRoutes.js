@@ -2,9 +2,9 @@ const express = require('express') ;
 const router = express.Router() ;
 const Product = require('../models/Product');
 const Review = require('../models/Review');
-const {validateReview} = require('../middleware') ;
+const {validateReview, isLoggedIn} = require('../middleware') ;
 
-router.post('/products/:id/review', validateReview, async (req, res)=>{
+router.post('/products/:id/review', isLoggedIn, validateReview, async (req, res)=>{
     try{
         let {id} = req.params ;
         let {rating, comment} = req.body ;
@@ -24,8 +24,5 @@ router.post('/products/:id/review', validateReview, async (req, res)=>{
     }
 })
 
-router.get('*', (req, res)=>{
-    res.render('error', {err: 'You have choosen wrong path'}) ;
-})
 
 module.exports = router ;

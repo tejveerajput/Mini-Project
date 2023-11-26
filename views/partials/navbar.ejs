@@ -12,14 +12,18 @@
           <li class="nav-item">
             <a class="nav-link" href="/products/new">New</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link disabled" aria-disabled="true">Disabled</a>
-          </li>
         </ul>
-        <form class="d-flex" role="search">
-          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        <div class="d-flex">
+          <% if(!currentUser){ %>
+            <a href="/login" class="nav-link mx-2">Login</a>
+          <% }  else{ %>
+          <a href="" class="nav-link mx-2">
+            <i class="fa-solid fa-cart-shopping"></i>
+            <sup> <span class="badge bg-danger" >2</span> </sup>
+          </a>
+          <a href="/logout" class="nav-link mx-2">Logout</a>
+          <% } %>
+        </div>
       </div>
     </div>
 </nav>
