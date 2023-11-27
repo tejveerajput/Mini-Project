@@ -10,8 +10,8 @@ router.get('/register', (req, res)=>{
 
 // to store data of user in DB
 router.post('/register', async (req, res)=>{
-    let {username, email, password} = req.body ;
-    const user = new User({email, username}) ;
+    let {username, email, password, role} = req.body ;
+    const user = new User({email, username, role}) ;
     const newUser = await User.register(user, password) ;
     res.redirect('/login') ;
 })

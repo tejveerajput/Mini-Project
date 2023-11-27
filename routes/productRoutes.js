@@ -2,11 +2,11 @@ const express = require('express') ;
 const router = express.Router() ;
 const Product = require('../models/Product');
 const Review = require('../models/Review');
-const {validateProduct, isLoggedIn} = require('../middleware') ;
+const {validateProduct, isLoggedIn, isSeller, isProductAuthor} = require('../middleware') ;
 
 
 // Home Page
-router.get('/products', isLoggedIn,  async (req, res)=>{
+router.get('/products', async (req, res)=>{
     try{
         let products = await Product.find({}) ;
         res.render('products/index', {products}) ;
@@ -30,10 +30,10 @@ router.get('/products/new', isLoggedIn, async (req, res)=>{
 })
 
 // Home Page after adding new product
-router.post('/products', isLoggedIn, validateProduct, async (req, res)=>{
+router.post('/products', isLoggedIn, isSeller, validateProduct, async (req, res)=>{
     try{
         let {name, img, price, desc} = req.body ;
-        await Product.create({name, img, price, desc}) ;
+        await Product.create({name, img, price, desc, author: req.user._id}) ;
         req.flash('success', 'Product Added Successfully') ;
         res.redirect('products') ;
     }
@@ -55,7 +55,7 @@ router.get('/products/:id', isLoggedIn, async (req, res)=>{
 })
 
 // Form to edit the product
-router.get('/products/:id/edit', isLoggedIn, async (req, res)=>{
+router.get('/products/:id/edit', isLoggedIn, isSeller, async (req, res)=>{
     try{
         let {id} = req.params ;
         let foundProduct = await Product.findById(id) ;
@@ -82,7 +82,7 @@ router.patch('/products/:id', isLoggedIn, async(req, res)=>{
 })
 
 // Deleting a product
-router.delete('/products/:id', isLoggedIn, async (req, res)=>{
+router.delete('/products/:id', isLoggedIn, isProductAuthor, async (req, res)=>{
     try{
         let {id} = req.params ;
         let foundProduct = await Product.findById(id) ;
