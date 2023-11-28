@@ -40,8 +40,4 @@ router.get('/logout', (req, res)=>{
     res.redirect('/login') ;
 })
 
-
-router.get('*', (req, res)=>{
-    res.render('error', {err: 'You have choosen wrong path'}) ;
-})
 module.exports = router ;

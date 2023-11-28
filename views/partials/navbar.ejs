@@ -4,7 +4,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-        <a class="navbar-brand" href="#">Hidden brand</a>
+        <a class="navbar-brand" href="/products">TROJAN</a>
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/products">Home</a>
@@ -19,10 +19,10 @@
           <% if(!currentUser){ %>
             <a href="/login" class="nav-link mx-2">Login</a>
           <% }  else{ %>
-            <a href="" class="nav-link mx-2"><%= currentUser.username %></a>
-            <a href="" class="nav-link mx-2">
+            <a href="#" class="nav-link mx-2"><%= currentUser.username %></a>
+            <a href="/user/cart" class="nav-link mx-2">
               <i class="fa-solid fa-cart-shopping"></i>
-              <sup> <span class="badge bg-danger" >2</span> </sup>
+              <sup> <span class="badge bg-danger"><%= currentUser.cart.length %></span> </sup>
             </a>
             <a href="/logout" class="nav-link mx-2">Logout</a>
           <% } %>

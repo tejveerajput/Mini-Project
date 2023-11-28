@@ -14,6 +14,7 @@ const User = require('./models/User')
 const productRoutes = require('./routes/productRoutes') ;
 const reviewRoutes = require('./routes/reviewRoutes') ;
 const authRoutes = require('./routes/authRoutes')
+const cartRoutes = require('./routes/cartRoutes') ;
 
 const seed = require('./seed') ;
 const seedDB = require('./seed') ;
@@ -70,6 +71,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/shopping')
 app.use(productRoutes) ;
 app.use(reviewRoutes) ;
 app.use(authRoutes) ;
+app.use(cartRoutes) ;
 
 app.listen(3000, ()=>{
     console.log('port 3000') ;
