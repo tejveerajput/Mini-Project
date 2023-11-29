@@ -72,6 +72,9 @@ app.use(productRoutes) ;
 app.use(reviewRoutes) ;
 app.use(authRoutes) ;
 app.use(cartRoutes) ;
+app.get('*', (req, res)=>{
+    res.render('error', {err: 'You have hit Wrong Routes'}) ;
+})
 
 app.listen(3000, ()=>{
     console.log('port 3000') ;
